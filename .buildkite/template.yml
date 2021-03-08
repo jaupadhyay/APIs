@@ -1,0 +1,6 @@
+name: "Buildkite Integration Tutorial"
+description: |
+  Learning to :pipeline: is amazing.
+steps:
+- label: ":pipeline:"
+  command: buildkite-agent pipeline upload .buildkite/pipeline.show-environment.yml
