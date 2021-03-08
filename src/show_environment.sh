@@ -13,7 +13,7 @@ echo "Dev changes Agent $devchange"
 
 if [[ -z ${TF_NAME} ]]; then 
 echo "TF_NAME Env Variable not passed"
-TF_NAME="platform"
+TF_NAME="apiproxy"
 echo "TF_NAME Env Variable value set through scrtip value is  $TF_NAME"
 else
 echo "TF_NAME Env Variable passed with value $TF_NAME"
@@ -27,9 +27,9 @@ checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${
 
 echo "Find command with env variable passed value value from script $checkscriptval"
 
-checkenv=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${UI_VAL}"  | sort)
+#checkenv=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${UI_VAL}"  | sort)
 
-echo "Find command with env variable passed value value  $checkenv"
+#echo "Find command with env variable passed value value  $checkenv"
 
 
 
