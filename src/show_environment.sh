@@ -23,7 +23,7 @@ checkfld=$(find Apigee/proxies -type d | grep -v 'targets' | grep 'apiproxy' | s
 
 echo "Find command with hardcoded valu $checkfld"
 
-checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${TF_NAME}"  | sort)
+checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep "${TF_NAME}" | sort)
 
 echo "Find command with env variable passed value value from script $checkscriptval"
 
