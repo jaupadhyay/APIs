@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 
 echo "Hello Buildkite Agent $BUILDKITE_AGENT_NAME"
 echo "Hello Buildkite Agent $BUILDKITE_SOURCE"
@@ -7,8 +8,6 @@ echo "Build Source  webhook"
 else
 echo "Build Source WEB"
 fi
-
-devchange=$(git log -n 20 --name-only --oneline --pretty="" | src )
 
 echo "Dev changes Agent $devchange"
 
@@ -20,6 +19,17 @@ else
 echo "TF_NAME Env Variable passed with value $TF_NAME"
 fi
 
-if [[( -n $devchange )]]; then
-echo "Dev changes Found"
-fi
+checkfld=$(find Apigee/proxies -type d | grep -v 'targets' | grep 'apiproxy' | sort)
+
+echo "Find command with hardcoded valu $checkfld"
+
+checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${TF_NAME}"  | sort)
+
+echo "Find command with env variable passed value value from script $checkscriptval"
+
+checkenv=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${UI_VAL}"  | sort)
+
+echo "Find command with env variable passed value value  $checkenv"
+
+
+
