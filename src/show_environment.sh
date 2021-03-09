@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-echo "Hello Buildkite Agent $BUILDKITE_AGENT_NAME"
+echo "Hello Buildkite Agent ${BUILDKITE_AGENT_NAME}"
 echo "Hello Buildkite Agent $BUILDKITE_SOURCE"
 if [[ "$BUILDKITE_SOURCE" == "webhook" ]]; then
 echo "Build Source  webhook"
@@ -15,7 +15,7 @@ if [[ -z ${devchange} ]]; then
 echo "Dev changes not in src "
 fi
 
-if[[ -n $devchange ]]; then
+if[[ -n ${devchange} ]]; then
 echo "Dev changes not in src "
 echo "Dev changes Agent $devchange"
 fi
