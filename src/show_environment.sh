@@ -9,7 +9,7 @@ else
 echo "Build Source WEB"
 fi
 
-devchange=$(git log -n 20 --name-only --oneline --pretty="" )
+devchange=$(git log "$BUILDKITE_COMMIT" )
 
 echo "Dev changes Agent $devchange"
 
