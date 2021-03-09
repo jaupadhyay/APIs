@@ -15,10 +15,11 @@ if [[ -z ${devchange} ]]; then
 echo "Dev changes not in src "
 fi
 
-if[[ -n ${devchange} ]]; then
+if [[ -n ${devchange} ]]; then 
 echo "Dev changes not in src "
-echo "Dev changes Agent $devchange"
+echo "Dev changes  ${devchange}"
 fi
+
 
 
 if [[ -z ${TF_NAME} ]]; then 
