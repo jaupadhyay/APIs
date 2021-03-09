@@ -9,7 +9,7 @@ else
 echo "Build Source WEB"
 fi
 
-devchange=$(git show --name-only | grep -c 'src' )
+devchange=$(git show --name-only | grep -i 'src' )
 
 echo "Dev changes Agent $devchange"
 
