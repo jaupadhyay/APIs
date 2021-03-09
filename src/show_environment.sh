@@ -9,6 +9,9 @@ else
 echo "Build Source WEB"
 fi
 
+mychange=$(git show --name-only )
+echo "Dev changes  ${mychange}"
+
 devchange=$(git show --name-only | grep -i '/Apigee/proxies/helloworld' || true)
 
 if [[ -z ${devchange} ]]; then 
