@@ -10,8 +10,15 @@ echo "Build Source WEB"
 fi
 
 devchange=$(git show --name-only | grep -i 'src' )
+if[[ -z devchange ]]; then
+echo "Dev changes not in source "
+fi
 
+if[[ -n devchange ]]; then
+echo "Dev changes not in source "
 echo "Dev changes Agent $devchange"
+fi
+
 
 if [[ -z ${TF_NAME} ]]; then 
 echo "TF_NAME Env Variable not passed"
