@@ -16,7 +16,7 @@ echo "Dev changes not in src "
 fi
 
 if [[ -n ${devchange} ]]; then 
-echo "Dev changes not in src "
+echo "Dev changes  in src "
 echo "Dev changes  ${devchange}"
 fi
 
