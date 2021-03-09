@@ -21,7 +21,7 @@ fi
 
 checkfld=$(find Apigee/proxies -type d | grep -v 'targets' | grep 'apiproxy' | sort)
 
-echo "Find command with hardcoded valu $checkfld"
+echo "Find command with hardcoded value $checkfld"
 
 checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep "${TF_NAME}" | sort)
 
