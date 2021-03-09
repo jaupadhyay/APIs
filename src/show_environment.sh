@@ -9,7 +9,7 @@ else
 echo "Build Source WEB"
 fi
 
-devchange=$(git show --name-only | grep -s 'src' || true)
+devchange=$(git show --name-only | grep -i '/Apigee/proxies/helloworld' || true)
 
 if [[ -z ${devchange} ]]; then 
 echo "Dev changes not in src "
