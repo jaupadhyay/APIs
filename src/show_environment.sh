@@ -9,6 +9,8 @@ else
 echo "Build Source WEB"
 fi
 
+devchange=$(git log -n 20 --name-only --oneline --pretty="" | src )
+
 echo "Dev changes Agent $devchange"
 
 if [[ -z ${TF_NAME} ]]; then 
