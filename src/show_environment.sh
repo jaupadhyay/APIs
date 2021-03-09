@@ -12,7 +12,7 @@ fi
 mychange=$(git show --name-only )
 echo "Dev changes  ${mychange}"
 
-devchange=$(git show --name-only | grep -i '/Apigee/proxies/helloworld' || true)
+devchange=$(git show --name-only | grep -i 'Apigee/proxies/helloworld' || true)
 
 if [[ -z ${devchange} ]]; then 
 echo "Dev changes not in src "
