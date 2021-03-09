@@ -10,12 +10,13 @@ echo "Build Source WEB"
 fi
 
 devchange=$(git show --name-only | grep -i 'src' )
-if[[ -z devchange ]]; then
-echo "Dev changes not in source "
+
+if [[ -z ${devchange} ]]; then 
+echo "Dev changes not in src "
 fi
 
-if[[ -n devchange ]]; then
-echo "Dev changes not in source "
+if[[ -n $devchange ]]; then
+echo "Dev changes not in src "
 echo "Dev changes Agent $devchange"
 fi
 
