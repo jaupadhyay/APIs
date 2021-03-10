@@ -41,7 +41,7 @@ checkscriptval=$(find Apigee/proxies -type d | grep -v 'targets' | grep "${TF_NA
 
 echo "Find command with env variable passed value value from script $checkscriptval"
 
-echo "some change"
+echo "some change2"
 #checkenv=$(find Apigee/proxies -type d | grep -v 'targets' | grep grep "${UI_VAL}"  | sort)
 
 #echo "Find command with env variable passed value value  $checkenv"
