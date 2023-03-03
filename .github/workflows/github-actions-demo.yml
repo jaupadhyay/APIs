@@ -1,18 +1,58 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: 'pr-validations'
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize, edited, reopened]
+
+permissions: read-all
+
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+  pr-validations:
+      name: 'PR Validation Checks'
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout repo
         uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Ensure jira ticket in PR title is present (CLAPG-0000 example title).
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}"
+          gh pr view $PR_NUMBER --json title --jq '.title' > pr_title.txt
+
+          pr_title=$(cat pr_title.txt)
+          echo $pr_title
+          pr_title_regex="(CLAPG|clapg|Clap)+-([0-9])+(:| |-)[a-zA-Z0-9 _.-:*]+"
+          if ! [[ "$pr_title" =~ $pr_title_regex ]]; then
+            echo "Please provide the PR title in valid form (ex: CLAPG-0000)"
+            exit 1
+          fi
+
+          pr_title_length=$(cat pr_title.txt | wc -m)
+          echo "$pr_title_length"
+          if [[ "$pr_title_length" == "0" ]]; then
+            echo "Please provide the title for your Pull Request"
+            exit 1
+          elif [[ "$pr_title_length" -lt "15" ]]; then 
+            echo "PR title should have atleast 25 chars"
+            exit 1
+          fi
+      - name: Ensure label is present for PR
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr view $PR_NUMBER --json labels --jq '.labels[0].name' > pr_label.txt
+
+          pr_label=$(cat pr_label.txt)
+          echo $pr_label
+          
+          pr_label_length=$(cat pr_label.txt | wc -m)
+          echo "$pr_label_length"
+          if [[ "$pr_label_length" == "1" ]]; then
+            echo "Please provide the title for your Pull Request"
+            exit 1
+          elif [[ "$pr_title_length" -lt "3" ]]; then 
+            echo "PR title should have atleast 25 chars"
+            exit 1
+          fi
