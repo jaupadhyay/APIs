@@ -50,9 +50,9 @@ jobs:
           pr_label_length=$(cat pr_label.txt | wc -m)
           echo "$pr_label_length"
           if [[ "$pr_label_length" == "1" ]]; then
-            echo "Please provide the title for your Pull Request"
+            echo "Please provide the label for your Pull Request"
             exit 1
-          elif [[ "$pr_title_length" -lt "3" ]]; then 
-            echo "PR title should have atleast 25 chars"
+          elif [[ "$pr_label_length" -lt "3" ]]; then 
+            echo "PR label should have atleast 25 chars"
             exit 1
           fi
