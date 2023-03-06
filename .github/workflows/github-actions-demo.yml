@@ -34,7 +34,7 @@ jobs:
             # Compare the current element with the string value
             if [ "$validlable" = "$pr_label" ]
             then
-              # echo "Found $pr_title in the array."
+              echo "Found $pr_label in the array."
               match_found=1
               break
             fi
