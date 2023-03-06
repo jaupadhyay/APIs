@@ -13,30 +13,6 @@ jobs:
       steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Ensure jira ticket in PR title is present (CLAPG-0000 example title).
-        env:
-          PR_NUMBER: ${{ github.event.number }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr view $PR_NUMBER --json title --jq '.title' > pr_title.txt
-
-          pr_title=$(cat pr_title.txt)
-          echo $pr_title
-          pr_title_regex="(CLAPG|clapg|Clap)+-([0-9])+(:| |-)[a-zA-Z0-9 _.-:*]+"
-          if ! [[ "$pr_title" =~ $pr_title_regex ]]; then
-            echo "Please provide the PR title in valid form (ex: CLAPG-0000)"
-            exit 1
-          fi
-
-          pr_title_length=$(cat pr_title.txt | wc -m)
-          echo "$pr_title_length"
-          if [[ "$pr_title_length" == "0" ]]; then
-            echo "Please provide the title for your Pull Request"
-            exit 1
-          elif [[ "$pr_title_length" -lt "15" ]]; then 
-            echo "PR title should have atleast 25 chars"
-            exit 1
-          fi
       - name: Ensure label is present for PR
         env:
           PR_NUMBER: ${{ github.event.number }}
@@ -47,12 +23,28 @@ jobs:
           pr_label=$(cat pr_label.txt)
           echo $pr_label
           
-          pr_label_length=$(cat pr_label.txt | wc -m)
-          echo "$pr_label_length"
-          if [[ "$pr_label_length" == "1" ]]; then
-            echo "Please provide the label for your Pull Request"
+          match_found=0
+          
+          # Define an array of valid lables
+          validlables=("Feature Introduced" "Fix" "Security Enhancement" "Deprecated")
+
+          # Loop through each element of the array
+          for validlable in "${validlables[@]}"
+          do
+            # Compare the current element with the string value
+            if [ "$validlable" = "$pr_label" ]
+            then
+              # echo "Found $pr_title in the array."
+              match_found=1
+              break
+            fi
+          done
+
+          # If no match is found, echo a message
+          if [ $match_found -eq 0 ]
+          then
+            echo "Please provide the valid label for your Pull Request"
             exit 1
-          elif [[ "$pr_label_length" -lt "3" ]]; then 
-            echo "PR label should have atleast 25 chars"
-            exit 1
+          else
+            echo "Label apply correctly."
           fi
