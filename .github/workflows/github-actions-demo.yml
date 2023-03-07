@@ -26,6 +26,17 @@ jobs:
           # Define an array of valid lables
           validlables=("Feature Introduced" "Fix" "Security Enhancement" "Deprecated")
 
+          validlablestring=""
+
+          # Loop through each element of the array and concatenate it to the result variable
+          for k in "${validlables[@]}"
+          do
+            result="$validlablestring $i"
+          done
+
+          # Print the result variable
+          echo $result
+          
           match_found=0
 
           # Loop through each element of the Validlables array
@@ -54,7 +65,7 @@ jobs:
           # If no match is found, echo a message
           if [ $match_found -eq 0 ]
           then
-            echo "Please provide the valid label for your Pull Request. Possible values are $validlables"
+            echo "Please provide the valid label for your Pull Request. Possible values are $validlablestring"
             exit 1
           else
             echo "Label applied correctly."            
