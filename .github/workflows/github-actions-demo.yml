@@ -21,10 +21,9 @@ jobs:
           gh pr view $PR_NUMBER --json labels --jq '.labels[].name' > pr_label.txt
 
           IFS=$'\r\n' GLOBIGNORE='*' command eval  'pr_labels=($(cat pr_label.txt))'
-          echo $pr_labels
-          
+                    
           # Define an array of valid lables
-          validlables=("Feature Introduced" "Fix" "Security Enhancement" "Deprecated")
+          validlabels=("Feature Introduced" "Fix" "Security Enhancement" "Deprecated")
 
           validlablestring=""
 
@@ -34,9 +33,7 @@ jobs:
             validlablestring="$validlablestring  '$k'"
           done
 
-          # Print the result variable
-          echo $result
-          
+
           match_found=0
 
           # Loop through each element of the Validlables array
