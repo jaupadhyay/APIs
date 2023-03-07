@@ -20,22 +20,33 @@ jobs:
         run: |
           gh pr view $PR_NUMBER --json labels --jq '.labels[0].name' > pr_label.txt
 
-          pr_label=$(cat pr_label.txt)
-          echo $pr_label
-          
-          match_found=0
+          IFS=$'\r\n' GLOBIGNORE='*' command eval  'pr_labels=($(cat pr_label.txt))'
+          echo $pr_labels
           
           # Define an array of valid lables
           validlables=("Feature Introduced" "Fix" "Security Enhancement" "Deprecated")
 
-          # Loop through each element of the array
-          for validlable in "${validlables[@]}"
+          match_found=0
+
+          # Loop through each element of the Validlables array
+          for i in "${validlabels[@]}"
           do
-            # Compare the current element with the string value
-            if [ "$validlable" = "$pr_label" ]
+            # Loop through each element of the pr lables array
+            for j in "${pr_labels[@]}"
+            do
+              # Compare the current element of the first array with the current element of the second array
+              if [ "$i" = "$j" ]
+              then
+                # A match is found, so set the match_found variable to 1 and break out of the inner loop
+                match_found=1
+                echo "Found $i in the array."
+                break
+              fi
+            done
+            
+            # If a match is found, break out of the outer loop as well
+            if [ $match_found -eq 1 ]
             then
-              echo "Found $pr_label in the array."
-              match_found=1
               break
             fi
           done
@@ -46,5 +57,5 @@ jobs:
             echo "Please provide the valid label for your Pull Request"
             exit 1
           else
-            echo "Label apply correctly."
+            echo "Label applied correctly."            
           fi
