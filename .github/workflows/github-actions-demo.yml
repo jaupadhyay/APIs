@@ -54,7 +54,7 @@ jobs:
           # If no match is found, echo a message
           if [ $match_found -eq 0 ]
           then
-            echo "Please provide the valid label for your Pull Request"
+            echo "Please provide the valid label for your Pull Request. Possible values are $validlables"
             exit 1
           else
             echo "Label applied correctly."            
