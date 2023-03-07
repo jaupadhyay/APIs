@@ -18,7 +18,7 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr view $PR_NUMBER --json labels --jq '.labels[0].name' > pr_label.txt
+          gh pr view $PR_NUMBER --json labels --jq '.labels[].name' > pr_label.txt
 
           IFS=$'\r\n' GLOBIGNORE='*' command eval  'pr_labels=($(cat pr_label.txt))'
           echo $pr_labels
