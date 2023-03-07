@@ -31,7 +31,7 @@ jobs:
           # Loop through each element of the array and concatenate it to the result variable
           for k in "${validlables[@]}"
           do
-            validlablestring="$validlablestring $k"
+            validlablestring="$validlablestring  '$k'"
           done
 
           # Print the result variable
